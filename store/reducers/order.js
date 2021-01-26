@@ -1,5 +1,7 @@
 import { SELECT_PIZZA,SELECT_SIZE,SELECT_TOPPING } from '../action/order'
-import { allPizza,allSize. allTopping } from '../reducers/menu';
+import PIZZA from '../../data/pizza-data';
+import SIZE from '../../data/size-data';
+import TOPPING from '../../data/topping-data';
 
 const initialState = {
     pizza: {}, //pizza item
@@ -18,10 +20,11 @@ export default (state=initialState,action) =>{
                 //alreaady selected
                 return state;
             }
-            newOrder = allPizza.find(item => item.id === addedPizza.id)
+            newOrder = PIZZA.find(item => item.id === addedPizza.id)
             const newPrice = (state.totalPrice - state.pizza.price) + newOrder.price
             const resetedToppings = [];
             return {
+                ...state,
                 pizza: newOrder,
                 totalPrice: newPrice,
                 toppings: resetedToppings
@@ -32,7 +35,7 @@ export default (state=initialState,action) =>{
             if(state.size[addedSize.id]){
                 return state;
             }
-            newSize = allSize.find(item => item.id === addedSize.id)
+            newSize = SIZE.find(item => item.id === addedSize.id)
             const newSizePrice = (state.totalPrice - state.size.price) + newSize.price
             return {
                 ...state,
