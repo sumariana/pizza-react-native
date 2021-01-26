@@ -14,6 +14,7 @@ const PizzaSelector = props => {
   const onSelectPizzaHandler = item =>{
     setSelectedPizza(item.id)
     dispatch(orderActions.selectPizza(item))
+    props.selectedPizza(item.id)
   }
 
     return (

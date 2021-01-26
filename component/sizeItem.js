@@ -15,7 +15,7 @@ const SizeItem= props=>{
                     status={props.isSelected ? 'checked': 'unchecked'}
                     onPress={props.onSelect}
                     value={props.label}
-                    disabled={props.isEnabled}
+                    disabled={props.isDisabled}
                     />
             <Text>{props.label}</Text>
         </View>
