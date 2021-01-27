@@ -8,12 +8,11 @@ import PizzaItem from '../component/pizzaItem';
 const PizzaSelector = props => {
 
   const pizza = useSelector(state => state.menus.allPizza)
-  const data = useSelector(state=>state.menus.availableToppings)
   const dispatch = useDispatch();
-  const [selectedPizza,setSelectedPizza]=useState(-1)
+  const selectedPizza =useSelector(state=>state.order.selectedPizza)
 
   const onSelectPizzaHandler = item =>{
-    setSelectedPizza(item.id)
+    //setSelectedPizza(item.id)
     dispatch(orderActions.selectPizza(item))
     dispatch(orderActions.countTotal())
     props.selectedPizza(item.id)
@@ -31,7 +30,7 @@ const PizzaSelector = props => {
               name ={itemData.item.label}
               price = {itemData.item.price}
               image = {itemData.item.value}
-              isSelected = {itemData.item.id === selectedPizza ? true : false}
+              isSelected = {itemData.item.id === selectedPizza}
               onSelect = {()=>{
                 onSelectPizzaHandler(itemData.item)
               }}

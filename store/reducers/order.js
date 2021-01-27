@@ -1,4 +1,5 @@
 import TOPPING from '../../data/topping-data';
+import { RESET_ITEM } from '../action/menu';
 import { SELECT_PIZZA,SELECT_SIZE,SELECT_TOPPING,COUNT_TOTAL } from '../action/order'
 
 
@@ -7,7 +8,9 @@ const initialState = {
     pizza: {}, //pizza item
     size: {}, //size item
     toppings: [], //select topping this will determines the ischecked of the checkbox
-    totalPrice: 0 //total price
+    totalPrice: 0, //total price
+    selectedPizza: -1,
+    selectedSize: -1
 }
 
 export default (state=initialState,action) =>{
@@ -22,6 +25,7 @@ export default (state=initialState,action) =>{
             return {
                 ...state,
                 pizza: addedPizza,
+                selectedPizza: addedPizza.id,
                 toppings: []
             };
         case SELECT_SIZE :
@@ -33,7 +37,8 @@ export default (state=initialState,action) =>{
             }
             return {
                 ...state,
-                size: addedSize
+                size: addedSize,
+                selectedSize: addedSize.id
             };
 
         case SELECT_TOPPING : 
@@ -61,12 +66,14 @@ export default (state=initialState,action) =>{
                 const price = TOPPING.find(item=>item.id === state.toppings[key])
                 toppingPrice += price.price
             }
-            //console.log(toppingPrice)
+            
             const total = pizzaPrice + sizePrice + toppingPrice
             return {
                 ...state,
                 totalPrice: total
             };
+        case RESET_ITEM :
+            return initialState;
     }
     return state;
 };

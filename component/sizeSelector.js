@@ -11,13 +11,12 @@ const SizeSelector = props => {
   const size = useSelector(state => state.menus.allSize);
   const selectedPizza = props.pizzaSelectedId;
   const dispatch = useDispatch();
-  const [selectedSize,setSelectedSize]=useState('-1');
+  const selectedSize=useSelector(state=>state.order.selectedSize);
   const [isSizeDisabled, setSizeDisabled]=useState(true);
 
   useEffect(() => {
     if(selectedPizza){
       setSizeDisabled(false)
-      setSelectedSize('2')
       const itemInit = size[1]
       dispatch(orderActions.selectSize(itemInit))
       dispatch(orderActions.countTotal())
@@ -25,7 +24,6 @@ const SizeSelector = props => {
   }, [selectedPizza,isSizeDisabled]);
 
   const onSelectSizeHandler = item =>{
-    setSelectedSize(item.id)
     dispatch(orderActions.selectSize(item))
     dispatch(orderActions.countTotal())
   }

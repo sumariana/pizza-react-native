@@ -1,7 +1,8 @@
 import React,{ useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import * as orderActions from '../store/action/order';
-import {FlatList,View,Text} from 'react-native';
+import * as menuACtions from '../store/action/menu';
+import {FlatList,View,Text, StyleSheet, Button} from 'react-native';
 
 import SizeItem from '../component/sizeItem';
 
@@ -9,12 +10,29 @@ import SizeItem from '../component/sizeItem';
 const TotalPrice = props => {
 
     const totalPrice = useSelector(state=>state.order.totalPrice)
+    const dispatch = useDispatch()
+    
+    const resetHandler=()=>{
+        dispatch(menuACtions.resetItem())
+    }
   
     return (
-      <View>
-        <Text style={{fontSize: 20, paddingStart: 20,paddingTop: 20}}>Grand Total ${totalPrice}</Text>
+      <View style={styles.screen}>
+        <Text style={{fontSize: 20}}>Grand Total ${totalPrice}</Text>
+        <Button title='RESET' onPress={resetHandler} />
       </View>
     );
 };
+
+const styles = StyleSheet.create({
+    screen :{
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
+        paddingTop:20,
+        paddingHorizontal:'10%'
+    }
+});
 
 export default TotalPrice;
