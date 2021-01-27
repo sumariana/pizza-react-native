@@ -18,12 +18,16 @@ const SizeSelector = props => {
     if(selectedPizza){
       setSizeDisabled(false)
       setSelectedSize('2')
+      const itemInit = size[1]
+      dispatch(orderActions.selectSize(itemInit))
+      dispatch(orderActions.countTotal())
     }
   }, [selectedPizza,isSizeDisabled]);
 
   const onSelectSizeHandler = item =>{
     setSelectedSize(item.id)
     dispatch(orderActions.selectSize(item))
+    dispatch(orderActions.countTotal())
   }
 
     return (

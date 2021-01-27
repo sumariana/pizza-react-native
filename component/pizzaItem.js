@@ -22,6 +22,7 @@ const PizzaItem= props=>{
                     status={props.isSelected ? 'checked': 'unchecked'}
                     onPress={props.onSelect}
                     value={props.name}
+                    color='#FF1969'
                     />
                 </View>
             </Card>

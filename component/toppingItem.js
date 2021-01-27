@@ -14,8 +14,9 @@ const ToppingItem= props=>{
                     onPress={props.onSelect}
                     value={props.label}
                     disabled={props.isDisabled}
+                    color='#FF1969'
                     />
-            <Text>{props.label}</Text>
+            <Text style={{flex:1}}>{props.label}</Text>
         </View>
     );
 };
@@ -27,8 +28,7 @@ const styles=StyleSheet.create({
         padding: 10,
         flexDirection:'row',
         alignItems:'center',
-        justifyContent:'center',
-        
+        justifyContent:'center'
     }
 });
 export default ToppingItem;

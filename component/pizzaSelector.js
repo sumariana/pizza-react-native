@@ -15,8 +15,8 @@ const PizzaSelector = props => {
   const onSelectPizzaHandler = item =>{
     setSelectedPizza(item.id)
     dispatch(orderActions.selectPizza(item))
+    dispatch(orderActions.countTotal())
     props.selectedPizza(item.id)
-    props.availToppings(data)
   }
 
     return (

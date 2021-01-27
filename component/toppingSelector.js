@@ -26,6 +26,7 @@ const ToppingSelector = props => {
              isDisabled = {!availableTopping.includes(itemData.item.id)}
              onSelect={()=>{
                  dispatch(orderActions.selectTopping(itemData.item))
+                 dispatch(orderActions.countTotal())
              }}
             />
           )}

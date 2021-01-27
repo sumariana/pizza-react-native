@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState} from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, Text } from 'react-native';
 
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 
 import MenuReducer from './store/reducers/menu';
@@ -11,6 +11,7 @@ import OrderReducer from './store/reducers/order';
 import PizzaSelector from './component/pizzaSelector';
 import SizeSelector from './component/sizeSelector';
 import ToppingSelector from './component/toppingSelector';
+import TotalPrice from './component/totalPrice';
 
 const rootReducer= combineReducers({
   menus: MenuReducer,
@@ -21,16 +22,11 @@ const store = createStore(rootReducer,applyMiddleware(ReduxThunk));
 
 export default function App() {
   const [pizzaSelected,setPizzaSelected] = useState()
-  const [pizzaTopping,setPizzaTopping]=useState()
 
   const pizzaSelection = selectedNumber => {
     setPizzaSelected(selectedNumber);
   };
 
-  const pizzaToppingSelection = data =>{
-    setPizzaTopping(data)
-    //console.log(pizzaTopping)
-  }
 
   return (
     <Provider store={store}>
@@ -38,12 +34,12 @@ export default function App() {
         <View>
           <PizzaSelector
           selectedPizza = {pizzaSelection}
-          availToppings = {pizzaToppingSelection}
           />
           <SizeSelector
           pizzaSelectedId={pizzaSelected}
           />
           <ToppingSelector/>
+          <TotalPrice/>
         </View>
       </ScrollView>
     </Provider>

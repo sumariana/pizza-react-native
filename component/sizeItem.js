@@ -14,6 +14,7 @@ const SizeItem= props=>{
                     onPress={props.onSelect}
                     value={props.label}
                     disabled={props.isDisabled}
+                    color='#FF1969'
                     />
             <Text>{props.label}</Text>
         </View>

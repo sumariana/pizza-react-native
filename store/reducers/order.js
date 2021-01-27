@@ -1,6 +1,6 @@
-import { SELECT_PIZZA,SELECT_SIZE,SELECT_TOPPING } from '../action/order'
-import PIZZA from '../../data/pizza-data';
-import SIZE from '../../data/size-data';
+import TOPPING from '../../data/topping-data';
+import { SELECT_PIZZA,SELECT_SIZE,SELECT_TOPPING,COUNT_TOTAL } from '../action/order'
+
 
 
 const initialState = {
@@ -13,57 +13,60 @@ const initialState = {
 export default (state=initialState,action) =>{
     switch(action.type){
         case SELECT_PIZZA :
-            const addedPizza = action.pizza;
-            
-            let newOrder;
+            const addedPizza = action.pizza;  
+        
             if(state.pizza[addedPizza.id]){
                 //alreaady selected
                 return state;
             }
-            newOrder = PIZZA.find(item => item.id === addedPizza.id)
-            const newPrice = (state.totalPrice - state.pizza.price) + newOrder.price
             return {
                 ...state,
-                pizza: newOrder,
-                totalPrice: newPrice,
+                pizza: addedPizza,
                 toppings: []
             };
         case SELECT_SIZE :
             const addedSize = action.size
-            let newSize;
+            const price = addedSize.price
+            
             if(state.size[addedSize.id]){
                 return state;
             }
-            newSize = SIZE.find(item => item.id === addedSize.id)
-            console.log(newSize)
-            const newSizePrice = (state.totalPrice - state.size.price) + newSize.price
             return {
                 ...state,
-                size: newSize,
-                totalPrice: newSizePrice
+                size: addedSize
             };
 
         case SELECT_TOPPING : 
             const topping = action.topping;
-            const toppingPrice = topping.price
 
             let updatedTopping=[...state.toppings];
 
             if(state.toppings.includes(topping.id)){
                 //already in list will be removed
-                //updatedTopping.filter(item => item.id !== topping.id)
                 const index = updatedTopping.indexOf(topping.id)
                 if(index>-1) updatedTopping.splice(index,1)
             }else{
                 //not already in list
                 updatedTopping = updatedTopping.concat(topping.id)
             }
-            console.log(updatedTopping)
             return{
                 ...state,
                 toppings: updatedTopping
             };
-
+        case COUNT_TOTAL :
+            const pizzaPrice = state.pizza.price
+            const sizePrice = state.size.price
+            let toppingPrice = 0
+            for (const key in state.toppings){
+                const price = TOPPING.find(item=>item.id === state.toppings[key])
+                toppingPrice += price.price
+            }
+            //console.log(toppingPrice)
+            const total = pizzaPrice + sizePrice + toppingPrice
+            return {
+                ...state,
+                totalPrice: total
+            };
     }
     return state;
 };
