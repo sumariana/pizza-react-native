@@ -22,16 +22,13 @@ export default (state= initialState, action) =>{
             for (const key in TOPPING){
                 if(TOPPING[key].pizzaMenu.includes(pizzaId)){
                     //if the pizza id is in toppings
-                    availableItem = availableItem.concat(TOPPING[key])
+                    availableItem = availableItem.concat(TOPPING[key].id)
                 }
             }
-            console.log(availableItem)
             return {
                 ...state,
                 availableToppings: availableItem
             };
-        default : 
-            return initialState
     }
-    return state;
+    return state
 };

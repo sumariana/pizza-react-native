@@ -1,12 +1,12 @@
 import { SELECT_PIZZA,SELECT_SIZE,SELECT_TOPPING } from '../action/order'
 import PIZZA from '../../data/pizza-data';
 import SIZE from '../../data/size-data';
-import TOPPING from '../../data/topping-data';
+
 
 const initialState = {
     pizza: {}, //pizza item
     size: {}, //size item
-    toppings: [], //select topping
+    toppings: [], //select topping this will determines the ischecked of the checkbox
     totalPrice: 0 //total price
 }
 
@@ -22,12 +22,11 @@ export default (state=initialState,action) =>{
             }
             newOrder = PIZZA.find(item => item.id === addedPizza.id)
             const newPrice = (state.totalPrice - state.pizza.price) + newOrder.price
-            const resetedToppings = [];
             return {
                 ...state,
                 pizza: newOrder,
                 totalPrice: newPrice,
-                toppings: resetedToppings
+                toppings: []
             };
         case SELECT_SIZE :
             const addedSize = action.size
@@ -36,6 +35,7 @@ export default (state=initialState,action) =>{
                 return state;
             }
             newSize = SIZE.find(item => item.id === addedSize.id)
+            console.log(newSize)
             const newSizePrice = (state.totalPrice - state.size.price) + newSize.price
             return {
                 ...state,
@@ -44,27 +44,25 @@ export default (state=initialState,action) =>{
             };
 
         case SELECT_TOPPING : 
-            const toppingId = action.tId
-            const latestTopping = [...state.toppings]
-            let tPrice;
-            toppingIndex = state.toppings.findIndex(item=>item.id===toppingId)
-            if(!state.toppings.find(item=> item.id===toppingId)){
-                //adding the topings to list
-                tPrice = state.totalPrice + latestTopping[toppingIndex].price
-                latestTopping.concat(latestTopping[toppingIndex])
+            const topping = action.topping;
+            const toppingPrice = topping.price
+
+            let updatedTopping=[...state.toppings];
+
+            if(state.toppings.includes(topping.id)){
+                //already in list will be removed
+                //updatedTopping.filter(item => item.id !== topping.id)
+                const index = updatedTopping.indexOf(topping.id)
+                if(index>-1) updatedTopping.splice(index,1)
             }else{
-                //remove the topping from list
-                tPrice=state.totalPrice - latestTopping[toppingIndex].price
-                latestTopping.filter(
-                    item => item.id !== toppingId
-                );
+                //not already in list
+                updatedTopping = updatedTopping.concat(topping.id)
             }
+            console.log(updatedTopping)
             return{
                 ...state,
-                toppings: latestTopping,
-                totalPrice: tPrice
+                toppings: updatedTopping
             };
-
 
     }
     return state;

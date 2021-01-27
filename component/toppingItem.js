@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, StyleSheet,Image,Text,Dimensions } from 'react-native';
-import { RadioButton } from 'react-native-paper';
+import { Checkbox } from 'react-native-paper';
 
 const num = 3
 const itemWidth = Dimensions.get('window').width
 
-const SizeItem= props=>{
+const ToppingItem= props=>{
     
     return (
         <View style={styles.card}>
-            <RadioButton
+            <Checkbox
                     status={props.isSelected ? 'checked': 'unchecked'}
                     onPress={props.onSelect}
                     value={props.label}
@@ -25,10 +25,10 @@ const styles=StyleSheet.create({
         width: (itemWidth/num),
         height: 60,
         padding: 10,
-        flexDirection:'column',
+        flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
-
+        
     }
 });
-export default SizeItem;
+export default ToppingItem;

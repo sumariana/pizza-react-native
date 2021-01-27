@@ -79,7 +79,7 @@ const TOPPING = [
         false
     ),
     new Topping(
-        '1',
+        '12',
         'Sausage',
         3,
         ['3',],

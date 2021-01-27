@@ -7,10 +7,10 @@ export const selectPizza = pizza =>{
 }
 
 export const selectSize = size =>{
-    return {type : SELECT_PIZZA, size: size};
+    return {type : SELECT_SIZE, size: size};
 }
 
-export const selectTopping = toppingId =>{
-    return {type: SELECT_TOPPING, tId:toppingId}
+export const selectTopping = topping =>{
+    return {type: SELECT_TOPPING, topping:topping};
 }
 

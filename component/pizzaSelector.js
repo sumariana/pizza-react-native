@@ -8,6 +8,7 @@ import PizzaItem from '../component/pizzaItem';
 const PizzaSelector = props => {
 
   const pizza = useSelector(state => state.menus.allPizza)
+  const data = useSelector(state=>state.menus.availableToppings)
   const dispatch = useDispatch();
   const [selectedPizza,setSelectedPizza]=useState(-1)
 
@@ -15,6 +16,7 @@ const PizzaSelector = props => {
     setSelectedPizza(item.id)
     dispatch(orderActions.selectPizza(item))
     props.selectedPizza(item.id)
+    props.availToppings(data)
   }
 
     return (

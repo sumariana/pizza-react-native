@@ -10,6 +10,7 @@ import MenuReducer from './store/reducers/menu';
 import OrderReducer from './store/reducers/order';
 import PizzaSelector from './component/pizzaSelector';
 import SizeSelector from './component/sizeSelector';
+import ToppingSelector from './component/toppingSelector';
 
 const rootReducer= combineReducers({
   menus: MenuReducer,
@@ -19,13 +20,17 @@ const rootReducer= combineReducers({
 const store = createStore(rootReducer,applyMiddleware(ReduxThunk));
 
 export default function App() {
-  const [pizzaHasSelected,setPizzaHasSelected] = useState(false)
   const [pizzaSelected,setPizzaSelected] = useState()
+  const [pizzaTopping,setPizzaTopping]=useState()
 
   const pizzaSelection = selectedNumber => {
     setPizzaSelected(selectedNumber);
-    setPizzaHasSelected(true);
   };
+
+  const pizzaToppingSelection = data =>{
+    setPizzaTopping(data)
+    //console.log(pizzaTopping)
+  }
 
   return (
     <Provider store={store}>
@@ -33,10 +38,12 @@ export default function App() {
         <View>
           <PizzaSelector
           selectedPizza = {pizzaSelection}
+          availToppings = {pizzaToppingSelection}
           />
           <SizeSelector
           pizzaSelectedId={pizzaSelected}
           />
+          <ToppingSelector/>
         </View>
       </ScrollView>
     </Provider>
