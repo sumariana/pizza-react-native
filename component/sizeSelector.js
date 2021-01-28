@@ -9,19 +9,21 @@ import SizeItem from '../component/sizeItem';
 const SizeSelector = props => {
 
   const size = useSelector(state => state.menus.allSize);
-  const selectedPizza = props.pizzaSelectedId;
+  const selectedPizza = useSelector(state => state.order.selectedPizza)
   const dispatch = useDispatch();
   const selectedSize=useSelector(state=>state.order.selectedSize);
   const [isSizeDisabled, setSizeDisabled]=useState(true);
 
   useEffect(() => {
-    if(selectedPizza){
+    if(selectedPizza !== -1){
       setSizeDisabled(false)
       const itemInit = size[1]
       dispatch(orderActions.selectSize(itemInit))
       dispatch(orderActions.countTotal())
+    }else{
+      setSizeDisabled(true)
     }
-  }, [selectedPizza,isSizeDisabled]);
+  }, [selectedPizza]);
 
   const onSelectSizeHandler = item =>{
     dispatch(orderActions.selectSize(item))

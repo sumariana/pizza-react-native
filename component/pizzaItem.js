@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet,Image,Text,Dimensions } from 'react-native';
+import { View, StyleSheet,Image,Text,Dimensions,TouchableOpacity } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 
 import Card from '../component/Card';
@@ -10,11 +10,13 @@ const itemWidth = Dimensions.get('window').width
 const PizzaItem= props=>{
     
     return (
-        <View style={{...styles.card, padding: 10}}>
+        <View style={{...styles.card, padding:5}}>
             <Card >
-                <View style={styles.imageContainer}>
+                <TouchableOpacity  style={styles.imageContainer} onPress={()=>{
+                    props.onDetail
+                }} >
                     <Image style={styles.image} source={{uri: props.image}}/>
-                </View>
+                </TouchableOpacity>
                 <View style={styles.content}>
                     <Text>{props.name}</Text>
                     <Text>${props.price.toFixed(0)}</Text>
@@ -32,8 +34,10 @@ const PizzaItem= props=>{
 
 const styles=StyleSheet.create({
     card: {
+        
         width: (itemWidth/num),
         height: 200
+
     },
     imageContainer:{
         borderTopLeftRadius: 10,

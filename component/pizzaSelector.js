@@ -1,7 +1,7 @@
 import React,{ useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import * as orderActions from '../store/action/order';
-import {FlatList,View,Text} from 'react-native';
+import {FlatList,View,Text, StyleSheet} from 'react-native';
 
 import PizzaItem from '../component/pizzaItem';
 
@@ -15,7 +15,6 @@ const PizzaSelector = props => {
     //setSelectedPizza(item.id)
     dispatch(orderActions.selectPizza(item))
     dispatch(orderActions.countTotal())
-    props.selectedPizza(item.id)
   }
 
     return (
@@ -34,11 +33,16 @@ const PizzaSelector = props => {
               onSelect = {()=>{
                 onSelectPizzaHandler(itemData.item)
               }}
+              onDetail={ ()=>{
+                console.log('this')
+                }
+               }
             />
           )}
         />
       </View>
     );
 };
+
 
 export default PizzaSelector;

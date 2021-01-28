@@ -18,8 +18,9 @@ export default (state=initialState,action) =>{
         case SELECT_PIZZA :
             const addedPizza = action.pizza;  
         
-            if(state.pizza[addedPizza.id]){
+            if(state.pizza.id === addedPizza.id){
                 //alreaady selected
+                console.log('here')
                 return state;
             }
             return {
@@ -30,9 +31,8 @@ export default (state=initialState,action) =>{
             };
         case SELECT_SIZE :
             const addedSize = action.size
-            const price = addedSize.price
             
-            if(state.size[addedSize.id]){
+            if(state.size.id === addedSize.id){
                 return state;
             }
             return {
