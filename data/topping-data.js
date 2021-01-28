@@ -71,7 +71,7 @@ const TOPPING = [
         '12',
         'Sausage',
         3,
-        ['3',]
+        ['3']
     )
 ];
 
