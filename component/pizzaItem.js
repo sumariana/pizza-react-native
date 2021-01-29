@@ -10,11 +10,9 @@ const itemWidth = Dimensions.get('window').width
 const PizzaItem= props=>{
     
     return (
-        <View style={{...styles.card, padding:5}}>
+        <View style={{ flex: 1, height: 200, margin:8}}>
             <Card >
-                <TouchableOpacity  style={styles.imageContainer} onPress={()=>{
-                    props.onDetail
-                }} >
+                <TouchableOpacity  style={styles.imageContainer} onPress={props.onDetail} >
                     <Image style={styles.image} source={{uri: props.image}}/>
                 </TouchableOpacity>
                 <View style={styles.content}>

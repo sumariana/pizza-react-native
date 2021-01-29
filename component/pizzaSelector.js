@@ -19,10 +19,11 @@ const PizzaSelector = props => {
 
     return (
       <View>
-        <Text style={{fontSize: 20, paddingStart: 20}}>Pizza</Text>
+        <Text style={{fontSize: 20, marginStart: 16}}>Pizza</Text>
         <FlatList
           data={pizza}
           numColumns={3}
+          contentContainerStyle={{padding: 8}}
           keyExtractor={item => item.id}
           renderItem={(itemData) => (
             <PizzaItem
@@ -33,10 +34,7 @@ const PizzaSelector = props => {
               onSelect = {()=>{
                 onSelectPizzaHandler(itemData.item)
               }}
-              onDetail={ ()=>{
-                console.log('this')
-                }
-               }
+              onDetail={ props.onOpenDetail.bind(this,itemData.item) }
             />
           )}
         />

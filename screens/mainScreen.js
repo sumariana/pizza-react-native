@@ -12,7 +12,9 @@ const MainScreen = props =>{
         <ScrollView style={styles.container} >
             <View>
             <PizzaSelector
-                onOpenDetail={ props.navigation.navigate('Detail') }
+                onOpenDetail={ (data)=>{
+                    props.navigation.navigate('Detail',{data: data})
+                } }
             />
             <SizeSelector
             />
